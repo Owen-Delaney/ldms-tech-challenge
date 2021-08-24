@@ -11,7 +11,7 @@ Initial Spring Boot project created using [Spring Initializr](https://start.spri
 ## To Run
 Run the following commands in a directory of your choice in a terminal
 
-`git clone git@github.com:Owen-Delaney/ldms-tech-challenge.git`
+`git clone https://github.com/Owen-Delaney/ldms-tech-challenge.git`
 
 `cd ldms-tech-challenge`
 
