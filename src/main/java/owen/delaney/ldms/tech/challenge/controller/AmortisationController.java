@@ -22,7 +22,7 @@ public class AmortisationController {
 	
 	@PostMapping("/newLoan")
 	public Schedule newLoan(@RequestBody Loan newLoan) {
-		return service.amortisationSchedule(newLoan);
+		return service.newLoan(newLoan);
 	}
 	
 	@GetMapping("/allLoans")

@@ -3,8 +3,10 @@ package owen.delaney.ldms.tech.challenge.entity;
 import java.util.List;
 
 public class Schedule {
-	private List<Payment> payments;
+	
 	private Loan loan;
+	private List<Payment> payments;
+
 	public List<Payment> getPayments() {
 		return payments;
 	}

@@ -1,7 +1,9 @@
 package owen.delaney.ldms.tech.challenge.entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ public class Loan {
 	private @Id @GeneratedValue Long id;
 	private BigDecimal assetValue;
 	private BigDecimal deposit;
+	@Column(precision = 7, scale = 5)
 	private BigDecimal interestRate;
 	private Integer monthlyPayments;
 	@Nullable
@@ -29,15 +32,6 @@ public class Loan {
 		this.setBallonPayment(((ballonPayment != null) ? ballonPayment : null));
 	}
 	
-	  @Override
-	  public String toString() {
-	    return "Loan{" + "id=" + this.getId() 
-	    		+ ", assetValue='" + this.getAssetValue() + '\'' 
-	    		+ ", deposit='" + this.getDeposit() + '\'' 
-	    		+ ", interestRate='" + this.getInterestRate() + '\'' 
-	    		+ ", monthlyPayments='" + this.getMonthlyPayments() + '\'' 
-	    		+ ", ballonPayment='" + this.getBallonPayment() + '\'' + '}';
-	  }
 
 	public Long getId() {
 		return id;
@@ -68,7 +62,7 @@ public class Loan {
 	}
 
 	public void setInterestRate(BigDecimal interestRate) {
-		this.interestRate = interestRate;
+		this.interestRate = interestRate.setScale(5, RoundingMode.HALF_UP);
 	}
 
 	public Integer getMonthlyPayments() {

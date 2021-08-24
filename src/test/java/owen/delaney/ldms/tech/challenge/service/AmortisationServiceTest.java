@@ -8,70 +8,65 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import owen.delaney.ldms.tech.challenge.entity.Loan;
+import owen.delaney.ldms.tech.challenge.entity.Payment;
 import owen.delaney.ldms.tech.challenge.repository.LoanRepository;
 
 class AmortisationServiceTest {
 	
 	private static AmortisationService amortisationService;
+	private static Loan loanWithoutBalloon;
+	private static Loan loanWithBalloon;
 	
     @BeforeAll
     public static void setup() {
     	amortisationService = new AmortisationService(mock(LoanRepository.class));
+    	loanWithoutBalloon = new Loan(new BigDecimal("25000"), 
+    			new BigDecimal("5000"), 
+    			new BigDecimal("0.075"), 60, null);
+    	
+    	loanWithBalloon = new Loan(new BigDecimal("25000"), 
+    			new BigDecimal("5000"), 
+    			new BigDecimal("0.075"), 60, new BigDecimal("10000"));
     }
-
+	
 	@Test
-	void test_monthly_repayment_calculation() {
-		BigDecimal principal = new BigDecimal("20000");
-		BigDecimal interestRate = new BigDecimal("0.075");
-		int monthlyRepayments = 60;
-		
+	void test_monthly_repayment_calculation1() {
 		BigDecimal expectedResult = new BigDecimal("400.76");
 		
-		BigDecimal actualResult = amortisationService.monthlyRepayment(principal, 
-				interestRate, monthlyRepayments);
+		BigDecimal actualResult = amortisationService.newLoan(loanWithoutBalloon)
+				.getPayments().get(0).getPayment();
 		
 		assertEquals(expectedResult, actualResult);
 	}
-	
+
 	@Test
-	void test_monthly_repayment_calculation_with_balloon_payment() {		
-		BigDecimal principal = new BigDecimal("20000");
-		BigDecimal interestRate = new BigDecimal("0.075");
-		int monthlyRepayments = 60;
-		BigDecimal ballonPayment = new BigDecimal("10000");
-		
+	void test_monthly_repayment_calculation_with_balloon_payment1() {	
 		BigDecimal expectedResult = new BigDecimal("262.88");
 		
-		BigDecimal actualResult = amortisationService.monthlyRepayment(principal, 
-				interestRate, monthlyRepayments, ballonPayment);
+		BigDecimal actualResult = amortisationService.newLoan(loanWithBalloon)
+				.getPayments().get(0).getPayment();
 		
 		assertEquals(expectedResult, actualResult);
 	}
 	
-	
 	@Test
-	void test_interest_payment_calcualtion() {
-		BigDecimal remainingBalance = new BigDecimal("20000");
-		BigDecimal interestRate = new BigDecimal("0.075");
-		
+	void test_interest_payment_calcualtion1() {	
 		BigDecimal expectedResult = new BigDecimal("125.00");
 		
-		BigDecimal actualResult = amortisationService.interestPayment(
-				remainingBalance, interestRate);
+		BigDecimal actualResult = amortisationService.newLoan(loanWithoutBalloon)
+				.getPayments().get(0).getIntrest();
 		
 		assertEquals(expectedResult, actualResult);
 				
 	}
-	
+		
 	@Test
-	void test_principal_payment_calcualtion() {
-		BigDecimal remainingBalance = new BigDecimal("262.88");
-		BigDecimal interestPayment = new BigDecimal("125");
+	void test_principal_payment_calcualtion1() {
+		BigDecimal expectedResult = new BigDecimal("275.76");
 		
-		BigDecimal expectedResult = new BigDecimal("137.88");
-		
-		BigDecimal actualResult = amortisationService.principalPayment(
-				remainingBalance, interestPayment);
+		Payment payment = amortisationService.newLoan(loanWithoutBalloon).getPayments().get(0);
+		BigDecimal actualResult = payment.getPayment().subtract(payment.getIntrest());
 		
 		assertEquals(expectedResult, actualResult);
 				

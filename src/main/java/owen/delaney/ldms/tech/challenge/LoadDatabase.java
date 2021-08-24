@@ -22,10 +22,10 @@ public class LoadDatabase {
 	  return args -> {
 	    log.info("Preloading test data" + repository.save(new Loan(
 	    		new BigDecimal("25000.00"), new BigDecimal("5000.00"), 
-	    		new BigDecimal("7.5"), 36, null)));
+	    		new BigDecimal("0.075"), 36, null)));
 	    log.info("Preloading test data" + repository.save(new Loan(
 	    		new BigDecimal("50000.00"), new BigDecimal("10000.00"), 
-	    		new BigDecimal("6.5"), 36, new BigDecimal("10000.00"))));
+	    		new BigDecimal("0.065"), 36, new BigDecimal("10000.00"))));
 	    };
 	}
 }
