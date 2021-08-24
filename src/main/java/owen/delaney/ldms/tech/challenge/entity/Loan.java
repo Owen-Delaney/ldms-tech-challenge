@@ -19,25 +19,73 @@ public class Loan {
 	@Nullable
 	private BigDecimal ballonPayment;
 	
-	Loan() {}
+	public Loan() {}
 	
-	Loan (BigDecimal assetValue, BigDecimal deposit, BigDecimal interestRate, 
+	public Loan (BigDecimal assetValue, BigDecimal deposit, BigDecimal interestRate, 
 			Integer monthlyPayments, BigDecimal ballonPayment) {
-		this.assetValue = assetValue;
-		this.deposit = deposit;
-		this.interestRate = interestRate;
-		this.monthlyPayments = monthlyPayments;
-		this.ballonPayment = ((ballonPayment != null) ? ballonPayment : null);
+		this.setAssetValue(assetValue);
+		this.setDeposit(deposit);
+		this.setInterestRate(interestRate);
+		this.setMonthlyPayments(monthlyPayments);
+		this.setBallonPayment(((ballonPayment != null) ? ballonPayment : null));
 	}
 	
 	  @Override
 	  public String toString() {
-	    return "Loan{" + "id=" + this.id 
-	    		+ ", assetValue='" + this.assetValue + '\'' 
-	    		+ ", deposit='" + this.deposit + '\'' 
-	    		+ ", interestRate='" + this.interestRate + '\'' 
-	    		+ ", monthlyPayments='" + this.monthlyPayments + '\'' 
-	    		+ ", ballonPayment='" + this.ballonPayment + '\'' + '}';
+	    return "Loan{" + "id=" + this.getId() 
+	    		+ ", assetValue='" + this.getAssetValue() + '\'' 
+	    		+ ", deposit='" + this.getDeposit() + '\'' 
+	    		+ ", interestRate='" + this.getInterestRate() + '\'' 
+	    		+ ", monthlyPayments='" + this.getMonthlyPayments() + '\'' 
+	    		+ ", ballonPayment='" + this.getBallonPayment() + '\'' + '}';
 	  }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public BigDecimal getAssetValue() {
+		return assetValue;
+	}
+
+	public void setAssetValue(BigDecimal assetValue) {
+		this.assetValue = assetValue;
+	}
+
+	public BigDecimal getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(BigDecimal deposit) {
+		this.deposit = deposit;
+	}
+
+	public BigDecimal getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(BigDecimal interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	public Integer getMonthlyPayments() {
+		return monthlyPayments;
+	}
+
+	public void setMonthlyPayments(Integer monthlyPayments) {
+		this.monthlyPayments = monthlyPayments;
+	}
+
+	public BigDecimal getBallonPayment() {
+		return ballonPayment;
+	}
+
+	public void setBallonPayment(BigDecimal ballonPayment) {
+		this.ballonPayment = ballonPayment;
+	}
 	
 }
